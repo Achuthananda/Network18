@@ -119,7 +119,5 @@ if __name__ == "__main__":
     addRule(args.ChangeID,args.accountSwitchKey)
 
 '''
-python addrule.py --accountSwitchKey 1-ssss --ChangeID 'yeys' --start 2 --end 2 
-python onboard.py --sheet 'First Batch' --start 3 --end 3 --accountSwitchKey 1-6JHGX --ChangeID 'TimesPOCDemo1: Third Batch Hostnames Addition' --logfile onboard.txt --addHostnameAppSec True
-
+python addrule.py --accountSwitchKey 1-ssss --ChangeID 'Adding Phase2 Basic Auth' --start 2 --end 2 
 '''
