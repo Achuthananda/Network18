@@ -21,7 +21,27 @@ In order to use this configuration, you need to:
 $ pip install -r requirements.txt
 ```
 
-### Add Rule to Single Row of Google Sheet
+### Customer : Add Rule to Single Row of Google Sheet
+```
+$:python addrule.py --ChangeID 'Phase1: Basic Auth Addition' --start 2 --end 2 
+Data Preparation Done!
+{
+  "www_jiodemo_clone": [
+    {
+      "HostName": "beta.example.com",
+      "Username": "stgnews18",
+      "Password": "g3!pX$tR@ngE#92"
+    }
+  ]
+}
+Preparing the rule for beta.example.com for the config www_jiodemo_clone
+Updating the rules for the config www_jiodemo_clone
+Updated the Rule succesfully to the config www_jiodemo_clone
+Initiated the activation of the config www_jiodemo_clone
+********************************************************************************
+```
+
+### Akamai Folks : Add Rule to Single Row of Google Sheet
 ```
 $:python addrule.py --accountSwitchKey 1-4as5FDXQsAV --ChangeID 'Phase1: Basic Auth Addition' --start 2 --end 2 
 Data Preparation Done!
@@ -43,5 +63,6 @@ Initiated the activation of the config www_jiodemo_clone
 
 ### Add Rule to Multiple Row of Google Sheet
 ```
-$:python addrule.py --accountSwitchKey 1-7989HV --ChangeID 'Phase1: Basic Auth Addition' --start 2 --end 5 
+python addrule.py --accountSwitchKey 1-798ss9HV --ChangeID 'Phase1: Basic Auth Addition' --start 2 --end 5 
+python addrule.py --ChangeID 'Phase1: Basic Auth Addition' --start 2 --end 5 
 ```
