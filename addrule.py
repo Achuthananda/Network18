@@ -21,8 +21,6 @@ sheet = client.open(gsheetName)
 configJson = {}
 
 
-
-
 def getBasicAuthHeader(username,password):
     import base64
     credentials = f'{username}:{password}'
@@ -70,10 +68,11 @@ def prepareData(startRow,endRow):
 def addRule(ChangeID,accountSwitchKey):
     for key in configJson.keys():
         config = key
-        pyakamaiObj = pyakamai(accountSwitchKey=accountSwitchKey,debug=False,verbose=False) 
+        pyakamaiObj = pyakamai(accountSwitchKey=accountSwitchKey,edgercLocation='~/.edgerc', section='default',debug=False, verbose=False)
         akamaiconfig = pyakamaiObj.client('property')
         akamaiconfig.config(config)
         newversion = akamaiconfig.createVersion(akamaiconfig.getProductionVersion())
+        print(newversion)
         #newversion = akamaiconfig.getProductionVersion()
         ruleTree = akamaiconfig.getRuleTree(newversion)
         for hosts in configJson[key]:
@@ -85,7 +84,9 @@ def addRule(ChangeID,accountSwitchKey):
         propruleInfo_json = json.dumps(ruleTree,indent=2)
         print("Updating the rules for the config {}".format(config))
         addRuleStatus = akamaiconfig.updateRuleTree(newversion,propruleInfo_json)
+        print("addRuleStatus=",addRuleStatus)
         updateNoteStatus = akamaiconfig.addVersionNotes(newversion,ChangeID)
+        print("updateNoteStatus=",updateNoteStatus)
         if addRuleStatus == True and updateNoteStatus == True:
             print("Updated the Rule succesfully to the config {}".format(config))
             activationStatus = akamaiconfig.activateStaging(newversion,ChangeID,["apadmana@akamai.com"])
@@ -99,6 +100,7 @@ def addRule(ChangeID,accountSwitchKey):
         
 
 if __name__ == "__main__":
+    print("Namaskara")
     parser = argparse.ArgumentParser(description='Times CDN Onboarding Tool.')
     # Storage migration
     parser.add_argument('--start', required=True, help='Starting Row Number')
@@ -119,5 +121,8 @@ if __name__ == "__main__":
     addRule(args.ChangeID,args.accountSwitchKey)
 
 '''
-python addrule.py --accountSwitchKey 1-ssss --ChangeID 'Adding Phase2 Basic Auth' --start 2 --end 2 
+Customer: 
+python addrule.py --ChangeID 'Adding Phase2 Basic Auth' --start 1 --end 1
+Akamai internal folks:
+python addrule.py --accountSwitchKey B-C-1IE2asssOH8 --ChangeID 'Adding Phase2 Basic Auth' --start 1 --end 1 
 '''
